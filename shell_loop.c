@@ -1,7 +1,7 @@
 #include "shell.h"
  /**
  * sh_loop - main shell loop
- * @data: the parameter & return data struct
+ * @info: the parameter & return data struct
  * @arg_vec: the argument vector from main()
  *
  * Return: 0 on success, 1 on error, or error code

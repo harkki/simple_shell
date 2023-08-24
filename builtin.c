@@ -1,10 +1,9 @@
 #include "shell.h"
  /**
- * sh_exit - Exits the shell
+ * sh_exit - exits the shell
  * @info: Structure containing potential arguments. Used to maintain
- * constant function prototype.
+ *	constant function prototype.
  * Return: exits with a given exit status
- * (0) if info.argv[0] != "exit"
  */
 int sh_exit(info_t *info)
 {
@@ -68,9 +67,9 @@ _putchar('\n');
 ​return 0;
 }
 /**
- * custom_help – Displays help information (not yet implemented)
+ * custom_help – Displays help information
  * @info: Structure containing potential arguments. Used to maintain
- * constant function prototype.
+ *	constant function prototype.
  * Return: Always 0
  */
 int custom_help(info_t *info)
