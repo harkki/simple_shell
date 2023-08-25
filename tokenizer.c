@@ -1,20 +1,20 @@
 #include "shell.h"
 /**
- * **custom_strtow - splits string into words. Repeat delimiters are ignored
- * @input_str: the input string
- * @delimeter: the delimeter string
+ * **cus_strtow - splits string into words.
+ * @in_str: the input string
+ * @de: the delimeter string
  * Return: a pointer to an array of strings, or NULL on failure
  */
-char **custom_strtow(char *input_str, char *delimeter)
+char **cus_strtow(char *in_str, char *de)
 {
 ​int i, j, k, m, n_words = 0;
 ​char **result_array;
-​if (input_str == NULL || input_str[0] == 0)
+​if (in_str == NULL || in_str[0] == 0)
 ​​return (NULL);
-​if (!delimeter)
-​​delimeter = " ";
-​for (i = 0; input_str[i] != '\0'; i++)
-​​if (!is_delimeter(input_str[i], d) && (is_delimeter(input_str[i + 1], delimeter) || !input_str[i + 1]))
+​if (!de)
+​​delim = " ";
+​for (i = 0; in_str[i] != '\0'; i++)
+​​if (!is_de(in_str[i], d) && (is_de(in_str[i + 1], de) || !in_str[i + 1]))
 ​​​n_words++;
 ​if (n_words == 0)
 ​​return (NULL);
@@ -23,10 +23,10 @@ char **custom_strtow(char *input_str, char *delimeter)
 ​​return (NULL);
 ​for (i = 0, j = 0; j < n_words; j++)
 ​{
-​​while (is_delimeter(input_str[i], delimeter))
+​​while (is_de(in_str[i], de))
 ​​​i++;
 ​​k = 0;
-​​while (!is_delimeter(input_str[i + k], delimeter) && input_str[i + k])
+​​while (!is_de(in_str[i + k], de) && in_str[i + k])
 ​​​k++;
 ​​result_array[j] = malloc((k + 1) * sizeof(char));
 ​​if (!result_array[j])
@@ -37,27 +37,27 @@ char **custom_strtow(char *input_str, char *delimeter)
 ​​​return (NULL);
 ​​}
 ​​for (m = 0; m < k; m++)
-​​​result_array[j][m] = input_str[i++];
+​​​result_array[j][m] = in_str[i++];
 ​​result_array[j][m] = 0;
 ​}
 ​result_array[j] = NULL;
 ​return (result_array);
 }
  /**
- * **custom_strtow2 - splits a string into words
- * @ input_str: the input string
- * @delimeter: the delimeter
+ * **cus_strtow2 - splits a string into words
+ * @in_str: the input string
+ * @de: the delimeter
  * Return: a pointer to an array of strings, or NULL on failure
  */
-char **custom_strtow2(char *input_str, char delimeter)
+char **cus_strtow2(char *in_str, char de)
 {
 ​int i, j, k, m, n_words = 0;
 ​char **result_array;
-​if (input_str == NULL || input_str[0] == 0)
+​if (in_str == NULL || in_str[0] == 0)
 ​​return (NULL);
-​for (i = 0; input_str[i] != '\0'; i++)
-​​if ((input_str[i] != delimeter && input_str[i + 1] == delimeter) ||
-​​​​    (input_str[i] != delimeter && !input_str[i + 1]) || input_str[i + 1] == delimeter)
+​for (i = 0; in_str[i] != '\0'; i++)
+​​if ((in_str[i] != de && in_str[i + 1] == de) ||
+​​​​    (in_str[i] != de && !in_str[i + 1]) || in_str[i + 1] == de)
 ​​​n_words++;
 ​if (n_words == 0)
 ​​return (NULL);
@@ -66,10 +66,10 @@ char **custom_strtow2(char *input_str, char delimeter)
 ​​return (NULL);
 ​for (i = 0, j = 0; j < n_words; j++)
 ​{
-​​while (input_str[i] == delimeter && input_str[i] != delimeter)
+​​while (in_str[i] == de && in_str[i] != de)
 ​​​i++;
 ​​k = 0;
-​​while (input_str[i + k] != delimeter && input_str[i + k] && input_str[i + k] != delimeter)
+​​while (in_str[i + k] != de && in_str[i + k] && in_str[i + k] != de)
 ​​​k++;
 ​​result_array[j] = malloc((k + 1) * sizeof(char));
 ​​if (!result_array[j])
@@ -80,7 +80,7 @@ char **custom_strtow2(char *input_str, char delimeter)
 ​​​return (NULL);
 ​​}
 ​​for (m = 0; m < k; m++)
-​​​result_array[j][m] = input_str[i++];
+​​​result_array[j][m] = in_str[i++];
 ​​result_array[j][m] = 0;
 ​}
 ​result_array[j] = NULL;

@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * _memset - fills memory with a constant byte
+ * memory_set - fills memory with a constant byte
  * @mem_dest: the pointer to the memory area
  * @byte: the byte to fill memory with
  * @size: the number of bytes to be filled
- * Return: A pointer to the memory area s
+ * Return: A pointer to the memory area
  */
-char *_memset(char *mem_dest, char byte, unsigned int size)
+char *memory_set(char *mem_dest, char byte, unsigned int size)
 {
 	unsigned int i;
 

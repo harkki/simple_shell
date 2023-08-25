@@ -2,8 +2,7 @@
 
 /**
  * custom_env - prints the current environment variable
- * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
+ * @info: Structure containing potential arguments.
  * Return: Always 0
  */
 int custom_env(info_t *info)
@@ -76,8 +75,7 @@ int custom_unsetenv(info_t *info)
 
 /**
  * populate_env_list - populates env linked list
- * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
+ * @info: Structure containing potential arguments.
  * Return: Always 0
  */
 int populate_env_list(info_t *info)

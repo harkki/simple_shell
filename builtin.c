@@ -1,8 +1,7 @@
 #include "shell.h"
  /**
  * sh_exit - exits the shell
- * @info: Structure containing potential arguments. Used to maintain
- *	constant function prototype.
+ * @info: Structure containing potential argument
  * Return: exits with a given exit status
  */
 int sh_exit(info_t *info)
