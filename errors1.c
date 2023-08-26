@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * _erratoi - converts a string to an integer
+ * str_to_int - converts a string to an integer
  * @s: the string to be converted
  * Return: 0 if no numbers in string, converted number otherwise
  *       -1 on error
  */
-int _erratoi(char *s)
+int str_to_int(char *s)
 {
 	Int result = 0;
 	Int sign = 1;
@@ -54,13 +54,13 @@ void print_error(info_t *info, char *estr)
 }
 
 /**
- * print_d - prints a decimal (integer) number (base 10)
+ * print_dec - prints a decimal (integer) number (base 10)
  * @input: the input number
  * @fd: the file descriptor to write to
  *
  * Return: number of characters printed
  */
-int print_d(int input, int fd)
+int print_dec(int input, int fd)
 {
 	int (*__putchar)(char) = _putchar;
 	int i, count = 0;

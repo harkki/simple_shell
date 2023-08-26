@@ -7,17 +7,22 @@
  *
  * Return: bytes read
  */
+
 /* Global variables */
-static size_t buffer_index = 0, chain_index = 0, buffer_length = 0;
+static size_t buffer_index;
+static size_t chain_index;
+static size_t buffer_length;
+
 ssize_t fill_input_buffer(info_t *info, char **buffer, size_t *buffer_len)
 {
-​ssize_t bytes_read = 0;
-​size_t buffer_p = 0;
-​if (!*buffer_len)
-{
-​​free(*buffer);
-​​ *buffer = NULL;
-​​signal(SIGINT, handle_interrupt);
+	ssize_t bytes_read = 0;
+	size_t buffer_p = 0;
+
+	if (!*buffer_len)
+	{
+		free(*buffer);
+		*buffer = NULL;
+		signal(SIGINT, handle_interrupt);
 #if USE_GETLINE
 ​​bytes_read = getline(buffer, &buffer_p, stdin);
 #else
@@ -32,7 +37,7 @@ ssize_t fill_input_buffer(info_t *info, char **buffer, size_t *buffer_len)
 ​​​}
 ​​​info->linecount_flag = 1;
 ​​​remove_comments(*buffer);
-​​​build_history_list(info, *buffer, info->histcount++);
+​​​build_hist_list(info, *buffer, info->histcount++);
 ​​​if (_strchr(*buffer, ';'))
 ​​​{
 ​​​​ *buffer_len = bytes_read;
@@ -50,13 +55,14 @@ ssize_t fill_input_buffer(info_t *info, char **buffer, size_t *buffer_len)
  */
 ssize_t get_user_input(info_t *info)
 {
-​static char *buffer;
-​ssize_t bytes_read = 0;
-​char **arg_ptr = &(info->arg), *position;
-​_putchar(BUF_FLUSH);
-​bytes_read = fill_input_buffer(info, &buffer, &buffer_length);
-​if (bytes_read == -1)
-​​return -1;
+	static char *buffer;
+	ssize_t bytes_read = 0;
+	char **arg_ptr = &(info->arg), *position;
+
+	_putchar(BUF_FLUSH);
+	bytes_read = fill_input_buffer(info, &buffer, &buffer_length);
+	if (bytes_read == -1)
+		return (-1);
 ​if (buffer_length)
 ​{
 ​​chain_index = buffer_index;
@@ -81,9 +87,9 @@ ssize_t get_user_input(info_t *info)
 ​return (bytes_read);
 }
 /**
- * read_info_buffer - reads a buffer
+ * read_into_buffer - reads a buffer
  * @info: parameter struct
- * @buf: buffer
+ * @buffer: buffer
  * @index: size
  *
  * Return: byte read
@@ -108,34 +114,35 @@ ssize_t read_into_buffer(info_t *info, char *buffer, size_t *index)
  */
 int get_line(info_t *info, char **ptr, size_t *length)
 {
-​static char buffer[READ_BUF_SIZE];
-​size_t buff_offset;
-​ssize_t bytes_read = 0, line_length = 0;
-​char *current_position = NULL, *new_position = NULL, *newline_ptr;
-​current_position = *ptr;
-​if (current_position && length)
-​​line_length = *length;
+	static char buffer[READ_BUF_SIZE];
+	size_t buf_ofst;
+	ssize_t bytes_read = 0, l_len = 0;
+	char *curt_po = NULL, *new_po = NULL, *nl_ptr;
+
+	current_position = *ptr;
+​if (curt_po && length)
+​​l_len = *length;
 ​if (buffer_index == buffer_length)
 ​​buffer_index = buffer_length = 0;
 ​bytes_read = read_into_buffer(info, buffer, &buffer_length);
 ​if (bytes_read == -1 || (bytes_read == 0 && buffer_length == 0))
 ​​return (-1);
 ​newline_ptr = _strchr(buffer + buffer_index, '\n');
-​buff_offset = newline_ptr ? 1 + (unsigned int)(newline_ptr - buffer) : buffer_length;
-​new_position = _realloc(current_position, line_length, line_length ? line_length + buff_offset : buff_offset + 1);
-​if (!new_position)
-​​return (current_position ? (free(current_position), -1) : -1);
-​if (line_length)
-​​_strncat(new_position, buffer + buffer_index, buff_offset - buffer_index);
+​buf_ofst = nl_ptr ? 1 + (unsigned int)(nl_ptr - buffer) : buffer_length;
+​new_po = _realloc(curt_po, l_len, l_len ? l_len + buf_ofst : buf_ofst + 1);
+​if (!new_po)
+​​return (curt_po ? (free(curt_po), -1) : -1);
+​if (l_len)
+​​_strncat(new_po, buffer + buffer_index, buf_ofst - buffer_index);
 ​else
-​​_strncpy(new_position, buffer + buffer_index, buff_offset - buffer_index + 1);
-​line_length += buff_offset - buffer_index;
-​buffer_index = buff_offset;
-​current_position = new_position;
+​​_strncpy(new_po, buffer + buffer_index, buf_ofst - buffer_index + 1);
+​l_len += buf_ofst - buffer_index;
+​buffer_index = buf_ofst;
+​curt_po = new_po;
 ​if (length)
-​​ *length = line_length;
-​ *ptr = current_position;
-​return (line_length);
+​​ *length = l_len;
+​ *ptr = curt_po;
+​return (l_len);
 }
 /**
  * handle_interrupt - blocks ctrl-C
